@@ -5,10 +5,15 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Image Buttons Example</title>
     <style>
+        .alldice {
+            display:block;
+        }
+        .dice-group {
+            display:inline;
+        }
         .image-button {
             border: none;
             background-color: transparent;
-            display:block;
             cursor: pointer;
             padding: 0;
         }
@@ -25,24 +30,32 @@
 </head>
 <body>
 
-    <!-- Button using d4 image -->
-    <button class="image-button" onclick="showValue('D4 clicked!')">
-        <img src="img/d4.webp" alt="D4 Button">
-    </button>
-
-    <!-- Button using d6 image -->
-    <button class="image-button" onclick="showValue('D6 clicked!')">
-        <img src="img/d6.webp" alt="D6 Button">
-    </button>
-
-    <!-- Button using d8 image -->
-    <button class="image-button" onclick="showValue('D8 clicked!')">
-        <img src="img/d8.webp" alt="D8 Button">
-    </button>
-
+    <div class="alldice">
+        
+        <!-- Button using d4 image -->
+        <div class="dice-group">
+            <button class="image-button" onclick="showValue('D4 clicked!')">
+                <img src="img/d4.webp" alt="D4 Button">
+            </button>
+        </div>
+            
+        <!-- Button using d6 image -->
+        <div class="dice-group">
+            <button class="image-button" onclick="showValue('D6 clicked!')">
+                <img src="img/d6.webp" alt="D6 Button">
+            </button>
+        </div>
+    
+        <!-- Button using d8 image -->
+        <div class="dice-group">
+            <button class="image-button" onclick="showValue('D8 clicked!')">
+                <img src="img/d8.webp" alt="D8 Button">
+            </button>
+        </div>
+    </div>
+    
     <!-- Where the result will be displayed -->
     <div id="result">Click an image to see the result.</div>
-
     <script>
         function showValue(value) {
             document.getElementById('result').textContent = value;
