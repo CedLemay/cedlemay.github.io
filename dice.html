@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Image Buttons Example</title>
+    <style>
+        .image-button {
+            border: none;
+            background-color: transparent;
+            cursor: pointer;
+            padding: 0;
+        }
+        .image-button img {
+            width: 100px; /* Set width as desired */
+            height: auto;
+        }
+        #result {
+            margin-top: 20px;
+            font-size: 24px;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Button using d4 image -->
+    <button class="image-button" onclick="showValue('D4 clicked!')">
+        <img src="img/d4.png" alt="D4 Button">
+    </button>
+
+    <!-- Button using d6 image -->
+    <button class="image-button" onclick="showValue('D6 clicked!')">
+        <img src="img/d6.png" alt="D6 Button">
+    </button>
+
+    <!-- Button using d8 image -->
+    <button class="image-button" onclick="showValue('D8 clicked!')">
+        <img src="img/d8.png" alt="D8 Button">
+    </button>
+
+    <!-- Where the result will be displayed -->
+    <div id="result">Click an image to see the result.</div>
+
+    <script>
+        function showValue(value) {
+            document.getElementById('result').textContent = value;
+        }
+    </script>
+
+</body>
+</html>
