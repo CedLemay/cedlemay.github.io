@@ -40,7 +40,7 @@
         <button class="image-button" onclick="showValue('D4 clicked!')">
             <img src="img/d4.webp" alt="D4 Button">
         </button>
-       <div id="container"></div>
+       <div id="container4"></div>
     </div>
         
     <!-- Button using d6 image -->
@@ -48,7 +48,7 @@
         <button class="image-button" onclick="showValue('D6 clicked!')">
             <img src="img/d6.webp" alt="D6 Button">
         </button>
-        <div id="container"></div>
+        <div id="container6"></div>
     </div>
 
     <!-- Button using d8 image -->
@@ -56,7 +56,7 @@
         <button class="image-button" onclick="showValue('D8 clicked!')">
             <img src="img/d8.webp" alt="D8 Button">
         </button>
-        <div id="container"></div>
+        <div id="container8"></div>
     </div>
     
     <!-- Where the result will be displayed -->
@@ -67,13 +67,18 @@
         }
         
         const template = document.getElementById('button-template');
-        const container = document.getElementById('container');
+        const container4 = document.getElementById('container4');
+        const container6 = document.getElementById('container6');
+        const container8 = document.getElementById('container8');
 
         // Function to clone and append the buttons
         function addButtonGroup() {
             const clone = template.content.cloneNode(true);
-            container.appendChild(clone);
+            container4.appendChild(clone);
+            container6.appendChild(clone);
+            container8.appendChild(clone);
         }
+        addButtonGroup();
     </script>
 
 </body>
