@@ -27,16 +27,20 @@
     </style>
 </head>
 <body>
-
+    <template id="button-template">
+        <div class="button-group">
+            <button>Button A</button>
+            <button>Button B</button>
+            <button>Button C</button>
+        </div>
+    </template>
      
     <!-- Button using d4 image -->
     <div class="dice-group">
         <button class="image-button" onclick="showValue('D4 clicked!')">
             <img src="img/d4.webp" alt="D4 Button">
         </button>
-        <button class="image-button" onclick="showValue('D4 clicked!')">
-            <img src="img/d4.webp" alt="D4 Button">
-        </button>
+       <div id="container"></div>
     </div>
         
     <!-- Button using d6 image -->
@@ -44,9 +48,7 @@
         <button class="image-button" onclick="showValue('D6 clicked!')">
             <img src="img/d6.webp" alt="D6 Button">
         </button>
-        <button class="image-button" onclick="showValue('D6 clicked!')">
-            <img src="img/d6.webp" alt="D6 Button">
-        </button>
+        <div id="container"></div>
     </div>
 
     <!-- Button using d8 image -->
@@ -54,9 +56,7 @@
         <button class="image-button" onclick="showValue('D8 clicked!')">
             <img src="img/d8.webp" alt="D8 Button">
         </button>
-        <button class="image-button" onclick="showValue('D8 clicked!')">
-            <img src="img/d8.webp" alt="D8 Button">
-        </button>
+        <div id="container"></div>
     </div>
     
     <!-- Where the result will be displayed -->
@@ -64,6 +64,15 @@
     <script>
         function showValue(value) {
             document.getElementById('result').textContent = value;
+        }
+        
+        const template = document.getElementById('button-template');
+        const container = document.getElementById('container');
+
+        // Function to clone and append the buttons
+        function addButtonGroup() {
+            const clone = template.content.cloneNode(true);
+            container.appendChild(clone);
         }
     </script>
 
