@@ -8,7 +8,9 @@
         .dice-group {
             display:block;
         }
-        
+        .dice-group-content {
+            display:inline;
+        }
         .image-button {            
             display:inline;
             border: none;
@@ -30,34 +32,40 @@
 <body>
     <template id="button-template">
         <div class="button-group">
-            <button class="image-button">Button A</button>
-            <button class="image-button">Button B</button>
-            <button class="image-button">Button C</button>
+            <button >Button A</button>
+            <button >Button B</button>
+            <button >Button C</button>
         </div>
     </template>
      
     <!-- Button using d4 image -->
     <div class="dice-group">
-        <button class="image-button" onclick="showValue('D4 clicked!')">
-            <img src="img/d4.webp" alt="D4 Button">
-        </button>
-       <div id="container4"></div>
+        <div class="dice-group-content">
+            <button class="image-button" onclick="showValue('D4 clicked!')">
+                <img src="img/d4.webp" alt="D4 Button">
+            </button>
+           <div id="container4"></div>
+        </div>
     </div>
         
     <!-- Button using d6 image -->
     <div class="dice-group">
-        <button class="image-button" onclick="showValue('D6 clicked!')">
-            <img src="img/d6.webp" alt="D6 Button">
-        </button>
-        <div  id="container6"></div>
+        <div class="dice-group-content">
+            <button class="image-button" onclick="showValue('D6 clicked!')">
+                <img src="img/d6.webp" alt="D6 Button">
+            </button>
+           <div id="container6"></div>
+        </div>
     </div>
 
     <!-- Button using d8 image -->
     <div class="dice-group">
-        <button class="image-button" onclick="showValue('D8 clicked!')">
-            <img src="img/d8.webp" alt="D8 Button">
-        </button>
-        <div   id="container8"></div>
+        <div class="dice-group-content">
+            <button class="image-button" onclick="showValue('D8 clicked!')">
+                <img src="img/d8.webp" alt="D8 Button">
+            </button>
+           <div id="container8"></div>
+        </div>
     </div>
     
     <!-- Where the result will be displayed -->
