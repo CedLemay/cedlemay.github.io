@@ -72,13 +72,13 @@
         const container8 = document.getElementById('container8');
 
         // Function to clone and append the buttons
-        function addButtonGroup() {
+        function addButtonGroup(container) {
             const clone = template.content.cloneNode(true);
-            container4.appendChild(clone);
-            container6.appendChild(clone);
-            container8.appendChild(clone);
+            container.appendChild(clone);            
         }
-        addButtonGroup();
+        addButtonGroup(container4);
+        addButtonGroup(container6);
+        addButtonGroup(container8);
     </script>
 
 </body>
