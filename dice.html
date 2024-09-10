@@ -95,6 +95,11 @@
                 imgElement.id = 'diceImg' + i;
                 imgElement.src= 'img/d'+ i +'.webp';
                 imgElement.alt= 'D'+ i +' Button';
+
+                const qTemplate = qtytemplate.content.cloneNode(true);
+                const containerElement = dTemplate.querySelector('#container');
+                containerElement.id = 'container'+i;
+                containerElement.appendChild(qTemplate);
                 
                 pageContent.appendChild(dTemplate);
             }
