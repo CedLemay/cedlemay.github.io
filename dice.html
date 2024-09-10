@@ -40,70 +40,73 @@
     </style>
 </head>
 <body>
-    <template id="button-template">
+    <template id="quantity-button-template">
         <div class="button-group">
             <button class="image-button">
                 <img src="img/minus.png" alt="Minus Button">
             </button>
             <div>
-                0
+                <span>0</span>
             </div>
             <button class="image-button">
                 <img src="img/plus.png" alt="Plus Button">
             </button>
         </div>
     </template>
-     
-    <!-- Button using d4 image -->
-    <div class="dice-group">
-        <div class="dice-group-content">
-            <button class="image-button" onclick="showValue('D4 clicked!')">
-                <img src="img/d4.webp" alt="D4 Button">
-            </button>
-           <div id="container4"></div>
+    
+     <template id="dice-button-template">
+        <div class="dice-group">
+            <div class="dice-group-content">
+                <button id="diceBtn" class="image-button" ">
+                    <img id="diceImg">
+                </button>
+               <div id="container"></div>
+            </div>
         </div>
-    </div>
+    </template>
+         
+    <div id="pageContent">
         
-    <!-- Button using d6 image -->
-    <div class="dice-group">
-        <div class="dice-group-content">
-            <button class="image-button" onclick="showValue('D6 clicked!')">
-                <img src="img/d6.webp" alt="D6 Button">
-            </button>
-           <div id="container6"></div>
-        </div>
-    </div>
-
-    <!-- Button using d8 image -->
-    <div class="dice-group">
-        <div class="dice-group-content">
-            <button class="image-button" onclick="showValue('D8 clicked!')">
-                <img src="img/d8.webp" alt="D8 Button">
-            </button>
-           <div id="container8"></div>
-        </div>
     </div>
     
     <!-- Where the result will be displayed -->
     <div id="result">Click an image to see the result.</div>
+    
     <script>
         function showValue(value) {
             document.getElementById('result').textContent = value;
         }
-        
-        const template = document.getElementById('button-template');
-        const container4 = document.getElementById('container4');
-        const container6 = document.getElementById('container6');
-        const container8 = document.getElementById('container8');
 
+        const pageContent = document.getElementById('pageContent');
+        const dicetemplate = document.getElementById('dice-button-template');
+        const qtytemplate = document.getElementById('quantity-button-template');
+
+        function addAllDices()
+        {
+            for (let i = 4; i < 12; i+=2) {
+                const dTemplate = dicetemplate.content.cloneNode(true);
+                
+                const btnElement = dTemplate.querySelector('#diceBtn');
+                btnElement.id = "diceBtn${i}"
+                btnElement.onclick="showValue('D${i} clicked!')
+                    
+                const imgElement = dTemplate.querySelector('#diceImg');
+                imgElement.id = "diceImg${i}";
+                imgElement.src="img/d${i}.webp";
+                imgElement.alt="D${i} Button";
+                
+                pageContent.appendChild(dTemplate)
+            }
+        }
+        
         // Function to clone and append the buttons
         function addButtonGroup(container) {
             const clone = template.content.cloneNode(true);
             container.appendChild(clone);            
         }
-        addButtonGroup(container4);
-        addButtonGroup(container6);
-        addButtonGroup(container8);
+        
+        addAllDices();
+        
     </script>
 
 </body>
