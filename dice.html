@@ -73,8 +73,8 @@
     <div id="result">Click an image to see the result.</div>
     
     <script>
-        function showValue(value) {
-            document.getElementById('result').textContent = value;
+        function showValue() {
+            document.getElementById('result').textContent = "TEST!";
         }
 
         const pageContent = document.getElementById('pageContent');
@@ -89,7 +89,7 @@
                 const btnElement = dTemplate.querySelector('#diceBtn');
                 btnElement.id = 'diceBtn' + i;
                 btnElement.value = i; 
-                btnElement.onclick="showValue(this.value)"
+                btnElement.onclick="showValue()"
                     
                 const imgElement = dTemplate.querySelector('#diceImg');
                 imgElement.id = 'diceImg' + i;
