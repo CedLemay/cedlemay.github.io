@@ -90,7 +90,7 @@
                 btnElement.id = 'diceBtn' + i;
                 btnElement.onclick = "showValue('D'+ i +' clicked!')";
                 btnElement.value = i; 
-                onclick="showValue(this.value)"
+                btnElement.onclick="showValue(this.value)"
                     
                 const imgElement = dTemplate.querySelector('#diceImg');
                 imgElement.id = 'diceImg' + i;
