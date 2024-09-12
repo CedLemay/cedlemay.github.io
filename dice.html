@@ -115,6 +115,7 @@
                 const qTemplate = qtytemplate.content.cloneNode(true);   
                 const containerElement = dTemplate.querySelector('#container');
                 containerElement.id = 'container'+i;
+                containerElement.style.display = 'none';
                 containerElement.appendChild(qTemplate);
                 
                 pageContent.appendChild(dTemplate);
