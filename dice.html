@@ -22,6 +22,18 @@
             padding: 0;
         }
         
+        .value-Image {            
+            height: 50px;
+            width: auto;
+            
+        }
+        
+        .dice-Image {            
+            height: 100px;
+            width: auto;
+            
+        }
+        
         .button-group {
             display: flex; /* Ensure buttons and number are aligned side by side */
             align-items: center; /* Center the elements vertically */
@@ -40,13 +52,13 @@
     <template id="quantity-button-template">
         <div class="button-group">
             <button class="image-button">
-                <img id="minusImg" src="img/minus.png" alt="Minus Button">
+                <img class="value-Image" id="minusImg" src="img/minus.png" alt="Minus Button">
             </button>
             <div>
                 <span id="amount">0</span>
             </div>
             <button class="image-button">
-                <img id="plusImg" src="img/plus.png" alt="Plus Button">
+                <img class="value-Image" id="plusImg" src="img/plus.png" alt="Plus Button">
             </button>
         </div>
     </template>
@@ -55,7 +67,7 @@
         <div class="dice-group">
             <div class="dice-group-content">
                 <button id="diceBtn" class="image-button" >
-                    <img id="diceImg">
+                    <img class="dice-Image" id="diceImg">
                 </button>
                <div id="container"></div>
             </div>
@@ -95,18 +107,7 @@
                 imgElement.Height = '100px';
                 imgElement.Width = 'auto';
 
-                const qTemplate = qtytemplate.content.cloneNode(true);                
-                const minusElement = dTemplate.querySelector('#minusImg');
-                const plusElement = dTemplate.querySelector('#plusImg');
-                
-                minusElement.Height = '50px';
-                minusElement.Width = 'auto';
-                minusElement.id = 'minusElement'+i;
-                
-                plusElement.Height = '50px';
-                plusElement.Width = 'auto';                
-                plusElement.id = 'plusElement'+i;
-                
+                const qTemplate = qtytemplate.content.cloneNode(true);   
                 const containerElement = dTemplate.querySelector('#container');
                 containerElement.id = 'container'+i;
                 containerElement.appendChild(qTemplate);
