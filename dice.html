@@ -22,10 +22,14 @@
             padding: 0;
         }
         
-        .value-Image {            
-            height: 50px;
+        .minus-Image {            
+            height: 35px;
             width: auto;
-            
+        }
+        
+        .plus-Image {            
+            height: 50px;
+            width: auto;    
         }
         
         .dice-Image {            
@@ -52,13 +56,13 @@
     <template id="quantity-button-template">
         <div class="button-group">
             <button class="image-button">
-                <img class="value-Image" id="minusImg" src="img/minus.png" alt="Minus Button">
+                <img class="minus-Image" id="minusImg" src="img/minus.png" alt="Minus Button">
             </button>
             <div>
                 <span id="amount">0</span>
             </div>
             <button class="image-button">
-                <img class="value-Image" id="plusImg" src="img/plus.png" alt="Plus Button">
+                <img class="plus-Image" id="plusImg" src="img/plus.png" alt="Plus Button">
             </button>
         </div>
     </template>
