@@ -73,7 +73,7 @@
                 <button id="diceBtn" class="image-button" >
                     <img class="dice-Image" id="diceImg">
                 </button>
-               <div id="container"></div>
+               <div id="container" display='none'></div>
             </div>
         </div>
     </template>
@@ -87,7 +87,8 @@
     
     <script>
         function showValue() {
-            document.getElementById('result').textContent = this.value;
+            const val = this.value;
+            document.getElementById('container'+val).display = 'flex';
         }
 
         const pageContent = document.getElementById('pageContent');
