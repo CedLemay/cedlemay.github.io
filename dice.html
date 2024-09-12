@@ -28,10 +28,7 @@
             gap: 5px; /* Space between buttons and the number */
         }
 
-        .image-button img {
-            width: 100px; /* Set width as desired */
-            height: auto;
-        }
+       
         #result {
             margin-top: 20px;
             font-size: 24px;
@@ -43,13 +40,13 @@
     <template id="quantity-button-template">
         <div class="button-group">
             <button class="image-button">
-                <img src="img/minus.png" alt="Minus Button">
+                <img id="minusImg" src="img/minus.png" alt="Minus Button">
             </button>
             <div>
-                <span>0</span>
+                <span id="amount">0</span>
             </div>
             <button class="image-button">
-                <img src="img/plus.png" alt="Plus Button">
+                <img id="plusImg" src="img/plus.png" alt="Plus Button">
             </button>
         </div>
     </template>
@@ -95,8 +92,21 @@
                 imgElement.id = 'diceImg' + i;
                 imgElement.src= 'img/d'+ i +'.webp';
                 imgElement.alt= 'D'+ i +' Button';
+                imgElement.Height = '100px';
+                imgElement.Width = auto;
 
-                const qTemplate = qtytemplate.content.cloneNode(true);
+                const qTemplate = qtytemplate.content.cloneNode(true);                
+                const minusElement = dTemplate.querySelector('#minusImg');
+                const plusElement = dTemplate.querySelector('#plusImg');
+                
+                minusElement.Height = '50px';
+                minusElement.Width = auto;
+                minusElement.id = 'minusElement'+i;
+                
+                plusElement.Height = '50px';
+                plusElement.Width = auto;                
+                plusElement.id = 'plusElement'+i;
+                
                 const containerElement = dTemplate.querySelector('#container');
                 containerElement.id = 'container'+i;
                 containerElement.appendChild(qTemplate);
