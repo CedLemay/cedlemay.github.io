@@ -24,7 +24,11 @@
             height: 50px;
             
         }
-        td:active
+        td:hover
+        {
+          background-color: yellow;
+        }
+        td.selected
         {
           background-color: aqua;
         }
@@ -78,7 +82,56 @@
       </form>
     
     <script>
-       
+
+      /*
+        TODO: mettre ce qui a de pas commenter dans une fonction. 
+              ensuite decommenter le code suivant et adapter pour les td
+        function AddDiceOfValueX(_x)
+        {
+            const dTemplate = dicetemplate.content.cloneNode(true);
+                
+                const btnElement = dTemplate.querySelector('#diceBtn');
+                btnElement.id = 'diceBtn' + _x;
+                btnElement.value = _x; 
+                btnElement.addEventListener('click', showValue, false);
+                    
+                const imgElement = dTemplate.querySelector('#diceImg');
+                imgElement.id = 'diceImg' + _x;
+                imgElement.src= 'img/d'+ _x +'.webp';
+                imgElement.alt= 'D'+ _x +' Button';
+
+                const qTemplate = qtytemplate.content.cloneNode(true);   
+                const containerElement = dTemplate.querySelector('#container');
+                containerElement.id = 'container'+_x;
+                containerElement.style.display = 'none';
+                containerElement.appendChild(qTemplate);
+                
+                pageContent.appendChild(dTemplate);
+        }
+      */
+
+
+       // Function to handle the click event on all <td> elements
+        document.addEventListener('DOMContentLoaded', () => {
+            const tableCells = document.querySelectorAll('td');
+
+            let previouslySelected = null;
+
+            tableCells.forEach(cell => {
+                cell.addEventListener('click', () => {
+                    // Remove 'selected' class from the previously selected cell
+                    if (previouslySelected) {
+                        previouslySelected.classList.remove('selected');
+                    }
+
+                    // Add 'selected' class to the clicked cell
+                    cell.classList.add('selected');
+
+                    // Update the reference to the currently selected cell
+                    previouslySelected = cell;
+                });
+            });
+        });
         
     </script>
 
