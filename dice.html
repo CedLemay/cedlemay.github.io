@@ -99,27 +99,35 @@
 
         function addAllDices()
         {
-            for (let i = 4; i < 12; i+=2) {
-                const dTemplate = dicetemplate.content.cloneNode(true);
+            for (let i = 4; i <= 12; i+=2) {
+                AddDiceOfValueX(i);
+                if(i == 10) 
+                    AddDiceOfValueX(100);
+            }
+            AddDiceOfValueX(20);
+
+        }
+        function AddDiceOfValueX(_x)
+        {
+            const dTemplate = dicetemplate.content.cloneNode(true);
                 
                 const btnElement = dTemplate.querySelector('#diceBtn');
-                btnElement.id = 'diceBtn' + i;
-                btnElement.value = i; 
+                btnElement.id = 'diceBtn' + _x;
+                btnElement.value = _x; 
                 btnElement.addEventListener('click', showValue, false);
                     
                 const imgElement = dTemplate.querySelector('#diceImg');
-                imgElement.id = 'diceImg' + i;
-                imgElement.src= 'img/d'+ i +'.webp';
-                imgElement.alt= 'D'+ i +' Button';
+                imgElement.id = 'diceImg' + _x;
+                imgElement.src= 'img/d'+ _x +'.webp';
+                imgElement.alt= 'D'+ _x +' Button';
 
                 const qTemplate = qtytemplate.content.cloneNode(true);   
                 const containerElement = dTemplate.querySelector('#container');
-                containerElement.id = 'container'+i;
+                containerElement.id = 'container'+_x;
                 containerElement.style.display = 'none';
                 containerElement.appendChild(qTemplate);
                 
                 pageContent.appendChild(dTemplate);
-            }
         }
         
         // Function to clone and append the buttons
