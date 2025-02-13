@@ -5,29 +5,44 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Image Buttons Example</title>
     <style>
-        form, table {
+        .iblock-table {
             display : inline-block;
             vertical-align:top;
         }
-        table, th, td {
+
+        .iblock-form {
+            display : inline-block; 
+            margin-left: 20px ;
+            margin-top: 20px ;
+        }
+
+        .bingo-cells {
+            border-radius: 10px;
+            width: 100px;
+            height: 100px;
+            border: 1px solid black;
+          text-align: center;
+
+            vertical-align:middle;
+
+        }
+
+        table, th {
 
             border: 1px solid black;
             text-align: center;
 
         }
+
         th{
             height: 50px;
         }
-        td {
-            border-radius: 10px;
-            width: 50px;
-            height: 50px;
-            
-        }
+
         td:hover
         {
           background-color: yellow;
         }
+        
         td.selected
         {
           background-color: aqua;
@@ -35,104 +50,121 @@
     </style>
 </head>
 <body>
-    <table>
-        <tr>
-          <th colspan ="5" >BINGO</th>
-          
-        </tr>
-        <tr>
-          <td>b1</td>
-          <td>i1</td>
-          <td>n1</td>
-          <td>g1</td>
-          <td>o1</td>
-        </tr>
-        <tr>
-            <td>b2</td>
-            <td>i2</td>
-            <td>n2</td>
-            <td>g2</td>
-            <td>o2</td>
-          </tr>
-          <tr>
-            <td>b3</td>
-            <td>i3</td>
-            <td>X</td>
-            <td>g3</td>
-            <td>o3</td>
-          </tr>
-          <tr>
-            <td>b4</td>
-            <td>i4</td>
-            <td>n4</td>
-            <td>g4</td>
-            <td>o4</td>
-          </tr>
-          <tr>
-            <td>b5</td>
-            <td>i5</td>
-            <td>n5</td>
-            <td>g5</td>
-            <td>o5</td>
-          </tr>
-      </table>
 
-      <form>
-        <label> Test </label>
-      </form>
+    <template id="bingo-row-template">
+      <tr id="bingoRow">        
+      </tr>
+    </template>
+
+    <template id="bingo-cell-template">
+      <td id="bingoCell" class="bingo-cells">
+      </td>
+    </template>
     
+    <table id="tableContent" class="iblock-table">
+        <tr>
+          <th colspan ="5" >BINGO</th>          
+        </tr>
+        
+    </table>
+
+    <form id ="noPrint" class="iblock-form">
+      <label> Test </label>
+      <input type="text" id="cellContentText">
+
+      <button onclick="printBingo()"> Print Bingo</button>
+    </form>
+
     <script>
 
-      /*
-        TODO: mettre ce qui a de pas commenter dans une fonction. 
-              ensuite decommenter le code suivant et adapter pour les td
-        function AddDiceOfValueX(_x)
-        {
-            const dTemplate = dicetemplate.content.cloneNode(true);
-                
-                const btnElement = dTemplate.querySelector('#diceBtn');
-                btnElement.id = 'diceBtn' + _x;
-                btnElement.value = _x; 
-                btnElement.addEventListener('click', showValue, false);
-                    
-                const imgElement = dTemplate.querySelector('#diceImg');
-                imgElement.id = 'diceImg' + _x;
-                imgElement.src= 'img/d'+ _x +'.webp';
-                imgElement.alt= 'D'+ _x +' Button';
+        const pageContent       = document.getElementById('pageContent');
+        const bingorowtemplate  = document.getElementById('bingo-row-template');
 
-                const qTemplate = qtytemplate.content.cloneNode(true);   
-                const containerElement = dTemplate.querySelector('#container');
-                containerElement.id = 'container'+_x;
-                containerElement.style.display = 'none';
-                containerElement.appendChild(qTemplate);
-                
-                pageContent.appendChild(dTemplate);
+        const bingocelltemplate = document.getElementById('bingo-cell-template');
+         
+        let selectedCell = null;
+
+        document.getElementById('cellContentText').addEventListener("input", function () {
+        if (selectedCell) {
+          selectedCell.textContent = document.getElementById('cellContentText').value; // Update TD text
         }
-      */
+    });
+
+        function AddAllBingoCells()
+        {
+            for(let i = 0; i < 5; i++)
+            {
+              AddBingoRow(i);              
+            }
+        }
+
+        function AddBingoRow(_x)
+        {          
+          const brTemplate = bingorowtemplate.content.cloneNode(true);
+          const rowElement = brTemplate.querySelector('#bingoRow');
+
+          rowElement.id = 'bingoRow' + _x;        
+          
+          for(let j = 0; j < 5; j++)
+          { 
+              AddBingoCell(_x, j, brTemplate);
+          }
+          
+          tableContent.appendChild(brTemplate);
+        }
+
+        function AddBingoCell(_x, _y, rowTemplate)
+        {
+          const bcTemplate = bingocelltemplate.content.cloneNode(true);
+          
+          const rowElement = bcTemplate.querySelector('#bingoCell');
+          rowElement.id = 'bingoCell' + _x + "_" + _y;  
+          rowElement.textContent = _x + " | " + _y
+          
+          
+          rowTemplate.appendChild(bcTemplate);
+        }
 
 
-       // Function to handle the click event on all <td> elements
-        document.addEventListener('DOMContentLoaded', () => {
-            const tableCells = document.querySelectorAll('td');
+        function addSelectionEvent()
+        {
+        // Function to handle the click event on all <td> elements
+          document.addEventListener('DOMContentLoaded', () => {
+              const tableCells = document.querySelectorAll('td');
 
-            let previouslySelected = null;
+              let previouslySelected = null;
 
-            tableCells.forEach(cell => {
-                cell.addEventListener('click', () => {
-                    // Remove 'selected' class from the previously selected cell
-                    if (previouslySelected) {
-                        previouslySelected.classList.remove('selected');
-                    }
+              tableCells.forEach(cell => {
+                  cell.addEventListener('click', () => {
+                      // Remove 'selected' class from the previously selected cell
+                      if (previouslySelected) {
+                          previouslySelected.classList.remove('selected');
+                      }
 
-                    // Add 'selected' class to the clicked cell
-                    cell.classList.add('selected');
+                      // Add 'selected' class to the clicked cell
+                      cell.classList.add('selected');
 
-                    // Update the reference to the currently selected cell
-                    previouslySelected = cell;
-                });
+                      document.getElementById('cellContentText').value = cell.innerHTML ;
+                      selectedCell = cell;
+
+                      // Update the reference to the currently selected cell
+                      previouslySelected = cell;
+                  });
+              });
             });
-        });
-        
+        }
+       
+        function printBingo() {
+            document.getElementById('noPrint').style.display = "none";
+            
+            window.print();
+
+            document.getElementById('noPrint').style.display = "inline-block";
+        }
+
+        AddAllBingoCells();
+        addSelectionEvent();
+
     </script>
 
 </body>
