@@ -45,7 +45,6 @@ function drawGrid()
     let yOffset = 0;
     
 
-
     for(let i = 0; i < _lines; i++)
     {
         yOffset = i * _radius * 1.5;
@@ -56,10 +55,13 @@ function drawGrid()
 
             //TEMP            
             addTextInShape(i,j,_radius + xOffset,_radius + yOffset);
+            
             //TEMP            
 
         }   
     }
+    
+    //drawSections();
 }
 
 function clearGrid()
@@ -72,8 +74,6 @@ function drawShape(x,y,s)
     ctx.beginPath();
     for (var i = 0; i < 6; i++) {
 
-        let _t = x + _radius * Math.cos(_angle * (i + 0.5));
-
         ctx.lineTo(x + _radius * Math.cos(_angle * (i + 0.5)), y + _radius * Math.sin(_angle * (i + 0.5)));
     }
 
@@ -82,16 +82,31 @@ function drawShape(x,y,s)
     if(s == 0)
         ctx.stroke();
     else
-       ctx.fill()
+       ctx.fill();
     
+}
+
+function drawSections()
+{
+    for (var i = 0; i < _lines*4; i++) {
+        ctx.beginPath();
+        ctx.lineTo(0, _radius / 2 * i +xyMargin);
+        let test =  _radius / 2 * i+xyMargin;
+        ctx.lineTo(800, _radius / 2 * i+xyMargin);
+        ctx.closePath();
+        ctx.stroke();
+    }
+
 }
 
 function setState(e)
 {
     
 
-    let posX = e.clientX;
-    let posY = e.clientY;
+    let rect = canvas.getBoundingClientRect();
+
+    let posX = e.clientX - rect.left;
+    let posY = e.clientY - rect.top;
 
 
     //approximate X
@@ -102,7 +117,29 @@ function setState(e)
     evenXIndex = Math.floor(evenXIndex);
     oddXIndex = Math.floor(oddXIndex );
 
-    alert("even X : " + evenXIndex + "   odd X : " + oddXIndex);
+    //approximate Y
+    let ySubSection = Math.floor((posY - xyMargin) / (_radius / 2));
+
+    let mustCheckIfInHexagonTips = ySubSection % 3 == 0;
+
+    let yIndex = -1;
+
+    if(mustCheckIfInHexagonTips)
+    {
+        let upperApproxY = ySubSection / 3;
+        let lowerApproxY = upperApproxY - 1;
+        alert (upperApproxY + "   "+ lowerApproxY);
+    }
+    else
+    {
+        yIndex = Math.floor(ySubSection / 3);
+    }
+
+
+
+
+
+    alert("even X : " + evenXIndex + "   odd X : " + oddXIndex+ "   Y : " + yIndex);
 
     return;
 
