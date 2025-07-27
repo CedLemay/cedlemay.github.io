@@ -83,10 +83,7 @@
     
     <script>
 
-      /*
-        TODO: mettre ce qui a de pas commenter dans une fonction. 
-              ensuite decommenter le code suivant et adapter pour les td
-        function AddDiceOfValueX(_x)
+        function AddBingoSquare(_x)
         {
             const dTemplate = dicetemplate.content.cloneNode(true);
                 
@@ -108,10 +105,12 @@
                 
                 pageContent.appendChild(dTemplate);
         }
-      */
+      
 
 
-       // Function to handle the click event on all <td> elements
+      function AddClickToBingoSquares()
+      {
+        // Function to handle the click event on all <td> elements
         document.addEventListener('DOMContentLoaded', () => {
             const tableCells = document.querySelectorAll('td');
 
@@ -132,7 +131,9 @@
                 });
             });
         });
-        
+      
+      }
+      AddClickToBingoSquares();
     </script>
 
 </body>
