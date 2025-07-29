@@ -128,7 +128,13 @@ function setState(e)
     {
         let upperApproxY = ySubSection / 3;
         let lowerApproxY = upperApproxY - 1;
-        alert (upperApproxY + "   "+ lowerApproxY);
+
+        let m = sqrt3;
+        let upperB = 3/2 * upperApproxY * _radius;
+        let lowerB = 3/2 * lowerApproxY * _radius;
+
+        
+
     }
     else
     {
