@@ -54,14 +54,15 @@ function drawGrid()
             drawShape(x0 + xOffset, y0 + yOffset, _state[i*_columns + j]);
 
             //TEMP            
-            addTextInShape(i,j,_radius + xOffset,_radius + yOffset);
+            //addTextInShape(i,j,_radius + xOffset,_radius + yOffset);
             
             //TEMP            
 
         }   
     }
-    
+    //TEMP  
     //drawSections();
+    //TEMP  
 }
 
 function clearGrid()
@@ -100,8 +101,7 @@ function drawSections()
 }
 
 function setState(e)
-{
-    
+{    
 
     let rect = canvas.getBoundingClientRect();
 
@@ -122,34 +122,74 @@ function setState(e)
 
     let mustCheckIfInHexagonTips = ySubSection % 3 == 0;
 
+    let xIndex = -1;
     let yIndex = -1;
+
+    yIndex = Math.floor(ySubSection / 3);
+
+    xIndex = oddXIndex;
+    if (yIndex % 2 == 0)
+        xIndex = evenXIndex;
 
     if(mustCheckIfInHexagonTips)
     {
-        let upperApproxY = ySubSection / 3;
-        let lowerApproxY = upperApproxY - 1;
+        if(!isInsideHexagon(posX , posY , xIndex, yIndex))
+        {
+            yIndex = yIndex - 1;
+            xIndex = oddXIndex;
 
-        let m = sqrt3;
-        let upperB = 3/2 * upperApproxY * _radius;
-        let lowerB = 3/2 * lowerApproxY * _radius;
+            if (yIndex % 2 == 0)
+                xIndex = evenXIndex;
 
-        
-
+            if(!isInsideHexagon(posX , posY , xIndex, yIndex))
+            {
+                xIndex = -1;
+                yIndex = -1;
+            }
+        }
     }
     else
     {
-        yIndex = Math.floor(ySubSection / 3);
+        if (yIndex % 2 == 0)
+            xIndex = evenXIndex;
+            
     }
 
+    
 
+    //alert("X : " + xIndex+ "   Y : " + yIndex);
 
-
-
-    alert("even X : " + evenXIndex + "   odd X : " + oddXIndex+ "   Y : " + yIndex);
-
-    return;
+    //return;
 
     drawGrid()
+}
+
+function isInsideHexagon(posX , posY , xIndex, yIndex)
+{
+    // y = mx + b
+
+    //TODO: add more explanation
+
+    let mx = sqrt3 / 3 * posX;
+    let _rad2 = _radius / 2;
+
+    let _3i = 3* yIndex;
+    let _iMod2 = yIndex % 2;
+    let _2j = 2*xIndex;
+
+    let upLeft      = (-1 * mx) + ( 1 + _3i + _iMod2 + _2j) * _rad2 + xyMargin;
+    let upRight     = ( 1 * mx) + (-1 + _3i - _iMod2 - _2j) * _rad2 + xyMargin;
+    let downLeft    = ( 1 * mx) + ( 3 + _3i - _iMod2 - _2j) * _rad2 + xyMargin;
+    let downRight   = (-1 * mx) + ( 5 + _3i + _iMod2 + _2j) * _rad2 + xyMargin;
+
+    let result = posY > upLeft
+        &&      posY > upRight
+        &&      posY < downLeft
+        &&      posY < downRight;
+
+    return  result;             
+
+    
 }
 
 //TEMP
