@@ -155,8 +155,14 @@ function setState(e)
             
     }
 
-    
-    _state[_columns * yIndex + xIndex] = !_state[_columns * yIndex + xIndex]
+    if(xIndex >= _columns || yIndex >= _lines)
+    {
+        xIndex = -1;
+        yIndex = -1;
+    }
+
+    if(xIndex != -1 && yIndex != -1)
+        _state[_columns * yIndex + xIndex] = !_state[_columns * yIndex + xIndex]
 
     //alert("X : " + xIndex+ "   Y : " + yIndex);
 
