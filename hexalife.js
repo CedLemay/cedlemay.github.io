@@ -156,6 +156,7 @@ function setState(e)
     }
 
     
+    _state[_columns * yIndex + xIndex] = !_state[_columns * yIndex + xIndex]
 
     //alert("X : " + xIndex+ "   Y : " + yIndex);
 
