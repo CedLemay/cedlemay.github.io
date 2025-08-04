@@ -1,3 +1,6 @@
+
+
+// #region Constants
 const canvas = document.getElementById('canvas');
 const ctx = canvas.getContext('2d');
 
@@ -18,6 +21,7 @@ const xyMargin = 5;
 const x0 = (_radius * sqrt3 / 2) + xyMargin;
 const y0 = _radius + xyMargin;
 
+// #endregion 
 
 function init() {
 
@@ -54,15 +58,12 @@ function drawGrid()
             drawShape(x0 + xOffset, y0 + yOffset, _state[i*_columns + j]);
 
             //TEMP            
-            //addTextInShape(i,j,_radius + xOffset,_radius + yOffset);
+            addTextInShape(i,j,_radius + xOffset,_radius + yOffset);
             
             //TEMP            
 
         }   
-    }
-    //TEMP  
-    //drawSections();
-    //TEMP  
+    }    
 }
 
 function clearGrid()
@@ -87,19 +88,6 @@ function drawShape(x,y,s)
     
 }
 
-function drawSections()
-{
-    for (var i = 0; i < _lines*4; i++) {
-        ctx.beginPath();
-        ctx.lineTo(0, _radius / 2 * i +xyMargin);
-        let test =  _radius / 2 * i+xyMargin;
-        ctx.lineTo(800, _radius / 2 * i+xyMargin);
-        ctx.closePath();
-        ctx.stroke();
-    }
-
-}
-
 function setState(e)
 {    
 
@@ -117,7 +105,7 @@ function setState(e)
     evenXIndex = Math.floor(evenXIndex);
     oddXIndex = Math.floor(oddXIndex );
 
-    //approximate Y
+    //Get Y and X
     let ySubSection = Math.floor((posY - xyMargin) / (_radius / 2));
 
     let mustCheckIfInHexagonTips = ySubSection % 3 == 0;
@@ -164,10 +152,7 @@ function setState(e)
     if(xIndex != -1 && yIndex != -1)
         _state[_columns * yIndex + xIndex] = !_state[_columns * yIndex + xIndex]
 
-    //alert("X : " + xIndex+ "   Y : " + yIndex);
-
-    //return;
-
+   
     drawGrid()
 }
 
@@ -199,8 +184,21 @@ function isInsideHexagon(posX , posY , xIndex, yIndex)
     
 }
 
-//TEMP
-//TEMP
+function stepToNextGeneration() 
+{ 
+
+    let nextGen  = new Array(_lines*_columns).fill(0);
+
+    //We must check the 6 neighbour cells and add up their
+    // state to know how much are alive
+
+
+
+
+}
+
+// #region Temporary function
+
 //TEMP
 function addTextInShape(i,j,x,y)
 {
@@ -209,3 +207,4 @@ function addTextInShape(i,j,x,y)
 }
 
 //TEMP
+// #endregion
