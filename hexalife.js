@@ -15,7 +15,7 @@ const _columns = 8;
 
 const sqrt3 = Math.sqrt(3);
 
-const _state = new Array(_lines*_columns).fill(0);
+let _state = new Array(_lines*_columns).fill(0);
 
 const xyMargin = 5;
 const x0 = (_radius * sqrt3 / 2) + xyMargin;
@@ -58,12 +58,18 @@ function drawGrid()
             drawShape(x0 + xOffset, y0 + yOffset, _state[i*_columns + j]);
 
             //TEMP            
-            addTextInShape(i,j,_radius + xOffset,_radius + yOffset);
+            //addTextInShape(i,j,_radius + xOffset,_radius + yOffset);
             
             //TEMP            
 
         }   
     }    
+}
+
+function reset()
+{
+    _state.fill(0);
+    drawGrid();
 }
 
 function clearGrid()
@@ -192,9 +198,73 @@ function stepToNextGeneration()
     //We must check the 6 neighbour cells and add up their
     // state to know how much are alive
 
+    let neighboursAdresses = new Array(6).fill(-1);
+    let currentIndex  = -1;
 
+    for(let i = 0; i < _lines; i++)
+    {
+        for(let j= 0; j < _columns; j++)
+        {
 
+            neighboursAdresses[0]      = (i - 1 == -1 || (j - (i + 1) % 2) == -1) ? -1 :
+                                                 _columns * (i - 1) + (j - (i + 1) % 2);    // up left
+            neighboursAdresses[1]      = (i - 1 == -1 || (j + i % 2) == _columns) ? -1 : 
+                                                _columns * (i - 1) + (j + i % 2);           // up right
+            neighboursAdresses[2]      = (j - 1 == -1) ? -1 : 
+                                                _columns * i + (j - 1);                     //  left
+            neighboursAdresses[3]      = (j + 1 == _columns) ? -1 :
+                                                 _columns * i + (j + 1);                    // right
+            neighboursAdresses[4]      = (i + 1 == _lines || (j - (i + 1) % 2) == -1) ? -1 : 
+                                                _columns * (i + 1) + (j - (i + 1) % 2);   // down left
+            neighboursAdresses[5]      = (i + 1 == _lines || (j + i % 2) == _columns) ? -1 :
+                                                _columns * (i + 1) + (j + i % 2);         // down right
 
+            currentIndex = _columns * i + j;
+
+            nextGen[_columns * i + j] = GetNextState(neighboursAdresses, currentIndex);
+        }
+        
+    }
+
+    _state = nextGen;   
+
+    drawGrid(); 
+
+}
+
+function GetNextState(neighboursAdresses, currentIndex)
+{
+    let newState = _state[currentIndex];
+    let aliveNeighbours = GetAliveNeighbours(neighboursAdresses);
+
+    if(_state[currentIndex] == 1)
+    {
+        //If the cell is alive
+        if(aliveNeighbours != 1 && aliveNeighbours != 2)
+            newState = 0; //Dies
+    }
+    else
+    {
+        //If the cell is dead
+        if(aliveNeighbours == 2 )
+            newState = 1; //Revives
+    }
+
+    return newState;
+
+}
+
+function GetAliveNeighbours(neighboursAdresses)
+{
+    let aliveNeighbours = 0;
+
+    neighboursAdresses.forEach(index => {
+        if (index !== -1) {
+            aliveNeighbours += _state[index];
+        }
+    });
+
+    return aliveNeighbours;
 }
 
 // #region Temporary function
