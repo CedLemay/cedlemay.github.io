@@ -21,8 +21,11 @@ const xyMargin = 5;
 const x0 = (_radius * sqrt3 / 2) + xyMargin;
 const y0 = _radius + xyMargin;
 
+let intervalID = null;
+
 // #endregion 
 
+// #region Init
 function init() {
 
     drawGrid();
@@ -31,8 +34,31 @@ function init() {
 }
 
 init();
+// #endregion
 
-/**
+// #region Functions
+
+function startAutoStep(speed)
+{
+    if (intervalID === null) {
+
+        speed = Math.max(250, Math.min(5000, speed));
+
+        intervalID = setInterval(stepToNextGeneration, speed);
+    }
+}
+
+function pauseAutoStep()
+{
+    if (intervalID !== null) {
+        clearInterval(intervalID);
+        intervalID = null;
+    }
+}
+
+function drawGrid()
+{   
+     /**
  * 
  *  X dist between  = r*sqrt(3)
  * 
@@ -41,8 +67,6 @@ init();
  *  x offset by r*sqrt(3)/2 each 2 line
  * 
  */
-function drawGrid()
-{    
     clearGrid();
 
     let xOffset = 0;
@@ -266,6 +290,7 @@ function GetAliveNeighbours(neighboursAdresses)
 
     return aliveNeighbours;
 }
+// #endregion
 
 // #region Temporary function
 
