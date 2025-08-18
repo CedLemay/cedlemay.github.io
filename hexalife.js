@@ -27,19 +27,6 @@ let intervalID = null;
 
 // #endregion 
 
-// #region Init
-function init() {
-
-    setLinesAndColumns();
-    _state = new Array(_lines * _columns).fill(0);
-    drawGrid();
-    canvas.addEventListener('click', setState);
-
-}
-
-init();
-// #endregion
-
 // #region Functions
 function setLinesAndColumns()
 {
@@ -313,4 +300,18 @@ function addTextInShape(i,j,x,y)
 }
 
 //TEMP
+// #endregion
+
+
+// #region Init
+function init() {
+
+    setLinesAndColumns();
+    _state = new Array(_lines * _columns).fill(0);
+    drawGrid();
+    canvas.addEventListener('click', setState);
+
+}
+
+init();
 // #endregion
