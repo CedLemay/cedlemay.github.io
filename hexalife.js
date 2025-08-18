@@ -6,20 +6,22 @@ const ctx = canvas.getContext('2d');
 
 const _sides = 6;
 const _angle = 2 * Math.PI / _sides;
-const _radius = 50;
+const _radius = 12;
 
-const _lines = 6;
-const _columns = 8;
+let _lines = 27;
+let _columns =37;
 
 
 
 const sqrt3 = Math.sqrt(3);
 
-let _state = new Array(_lines*_columns).fill(0);
+let _state = new Array(_lines * _columns).fill(0);
 
-const xyMargin = 5;
-const x0 = (_radius * sqrt3 / 2) + xyMargin;
-const y0 = _radius + xyMargin;
+const xMargin = -(_radius * sqrt3 / 2);
+const yMargin = -(_radius/2);
+
+const x0 = (_radius * sqrt3 / 2) + xMargin;
+const y0 = _radius + yMargin;
 
 let intervalID = null;
 
@@ -28,6 +30,8 @@ let intervalID = null;
 // #region Init
 function init() {
 
+    setLinesAndColumns();
+    _state = new Array(_lines * _columns).fill(0);
     drawGrid();
     canvas.addEventListener('click', setState);
 
@@ -37,6 +41,12 @@ init();
 // #endregion
 
 // #region Functions
+function setLinesAndColumns()
+{
+    _lines = Math.floor(canvas.height / (_radius * 1.5));
+    _columns = Math.floor(canvas.width / (sqrt3 * _radius));
+}
+
 
 function startAutoStep(speed)
 {
@@ -92,6 +102,7 @@ function drawGrid()
 
 function reset()
 {
+    pauseAutoStep();
     _state.fill(0);
     drawGrid();
 }
@@ -129,14 +140,14 @@ function setState(e)
 
     //approximate X
 
-    let evenXIndex = (posX-xyMargin) / (sqrt3 * _radius);
-    let oddXIndex = (posX - (_radius * sqrt3 / 2) - xyMargin) / (sqrt3 * _radius);
+    let evenXIndex = (posX-xMargin) / (sqrt3 * _radius);
+    let oddXIndex = (posX - (_radius * sqrt3 / 2) - xMargin) / (sqrt3 * _radius);
 
     evenXIndex = Math.floor(evenXIndex);
     oddXIndex = Math.floor(oddXIndex );
 
     //Get Y and X
-    let ySubSection = Math.floor((posY - xyMargin) / (_radius / 2));
+    let ySubSection = Math.floor((posY - yMargin) / (_radius / 2));
 
     let mustCheckIfInHexagonTips = ySubSection % 3 == 0;
 
@@ -199,10 +210,10 @@ function isInsideHexagon(posX , posY , xIndex, yIndex)
     let _iMod2 = yIndex % 2;
     let _2j = 2*xIndex;
 
-    let upLeft      = (-1 * mx) + ( 1 + _3i + _iMod2 + _2j) * _rad2 + xyMargin;
-    let upRight     = ( 1 * mx) + (-1 + _3i - _iMod2 - _2j) * _rad2 + xyMargin;
-    let downLeft    = ( 1 * mx) + ( 3 + _3i - _iMod2 - _2j) * _rad2 + xyMargin;
-    let downRight   = (-1 * mx) + ( 5 + _3i + _iMod2 + _2j) * _rad2 + xyMargin;
+    let upLeft      = (-1 * mx) + ( 1 + _3i + _iMod2 + _2j) * _rad2 + xMargin;
+    let upRight     = ( 1 * mx) + (-1 + _3i - _iMod2 - _2j) * _rad2 + xMargin;
+    let downLeft    = ( 1 * mx) + ( 3 + _3i - _iMod2 - _2j) * _rad2 + xMargin;
+    let downRight   = (-1 * mx) + ( 5 + _3i + _iMod2 + _2j) * _rad2 + xMargin;
 
     let result = posY > upLeft
         &&      posY > upRight
